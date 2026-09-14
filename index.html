@@ -1,18 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-  <title>Meu Minder</title>
-    <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <div class="binder">
-          <h1>Meu Minder 💛</h1>
-              <div class="pagina">
-                    <div class="photocard">PC 1</div>
-                          <div class="photocard">PC 2</div>
-                                <div class="photocard">PC 3</div>
-                                      <div class="photocard">PC 4</div>
-                                          </div>
-                                            </div>
-                                            </body>
-                                            </html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MINDER - my first binder</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+    body{background:#D6E6F0;min-height:100vh}
+      header{background:#fff;display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:2px solid #2E4632}
+       .logo{display:flex;align-items:center;gap:10px;font-weight:800;color:#1E3A2B}
+        .logo span{background:#FFF6B3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center}
+         .binder-wrap{display:grid;place-items:center;padding:30px 20px}
+          .binder{background:#FFF9B1;width:100%;max-width:380px;aspect-ratio:3/4.2;border-radius:24px 24px 24px 24px;position:relative;box-shadow:0 20px 40px rgba(0,0,0,.15);padding:18px;cursor:pointer;transition:.4s}
+           .binder::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:32px;background:linear-gradient(90deg,#FFF6B3,#F5EFA0);border-radius:24px 0 0 24px}
+            .card{background:#fff;border:3px solid #E5E5E5;border-radius:16px;padding:28px 20px;text-align:center;margin-top:140px;box-shadow:0 10px 20px rgba(0,0,0,.1)}
+             .card small{letter-spacing:3px;font-weight:800;color:#1E3A2B}
+              .card h1{font-family:cursive;font-size:32px;color:#1E3A2B;margin:12px 0;font-weight:500}
+               .card p{color:#7A8C7A;font-size:14px}
+                .page{display:none;background:#fff;width:100%;max-width:400px;border-radius:24px;padding:16px;box-shadow:0 20px 40px rgba(0,0,0,.15)}
+                 .page.active{display:block}
+                  .grid{background:#A8C5B5;border-radius:20px;padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+                   .slot{background:#D5E8DD;border:3px solid #fff;border-radius:16px;aspect-ratio:3/4;display:grid;place-items:center;text-align:center;color:#5A7A6A;padding:10px;cursor:pointer;overflow:hidden}
+                    .slot img{width:100%;height:100%;object-fit:cover;border-radius:12px}
+                     .colors{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+                      .colors button{width:42px;height:42px;border-radius:50%;border:3px solid #fff;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.1)}
+                       .topbar{padding:12px;display:flex;justify-content:space-between;font-weight:700;color:#1E3A2B}
+                       </style>
+                       </head>
+                       <body>
+                       <header>
+                         <div class="logo"><span>★</span> MINDER</div>
+                           <div>Meus Binders ▼ ⚙️</div>
+                           </header>
+
+                           <div class="binder-wrap">
+                             <!-- CAPA -->
+                               <div class="binder" id="cover" onclick="openBinder()">
+                                   <div class="card">
+                                         <small>MINDER</small>
+                                               <h1>my first binder</h1>
+                                                     <p>photocard archive</p>
+                                                         </div>
+                                                           </div>
+
+                                                             <!-- PÁGINA INTERNA -->
+                                                               <div class="page" id="page">
+                                                                   <div class="topbar"><span>Página 1 de 8</span><span id="count">0/4 cheios</span></div>
+                                                                       <div class="grid">
+                                                                             <div class="slot" onclick="addPhoto(this)"><div>📷+<br>toque para colocar<br>um photocard</div></div>
+                                                                                   <div class="slot" onclick="addPhoto(this)"><div>📷+<br>toque para colocar<br>um photocard</div></div>
+                                                                                         <div class="slot" onclick="addPhoto(this)"><div>📷+<br>toque para colocar<br>um photocard</div></div>
+                                                                                               <div class="slot" onclick="addPhoto(this)"><div>📷+<br>toque para colocar<br>um photocard</div></div>
+                                                                                                   </div>
+                                                                                                       <div style="text-align:center;margin-top:12px"><button onclick="closeBinder()">← Voltar pra capa</button></div>
+                                                                                                           <div class="colors">
+                                                                                                                 <button style="background:#A8C5B5" onclick="changeColor('#A8C5B5')"></button>
+                                                                                                                       <button style="background:#FFC2D1" onclick="changeColor('#FFC2D1')"></button>
+                                                                                                                             <button style="background:#FFF6B3" onclick="changeColor('#FFF6B3')"></button>
+                                                                                                                                   <button style="background:#C5B3FF" onclick="changeColor('#C5B3FF')"></button>
+                                                                                                                                         <button style="background:#FFD8A8" onclick="changeColor('#FFD8A8')"></button>
+                                                                                                                                               <button style="background:#B3D9FF" onclick="changeColor('#B3D9FF')"></button>
+                                                                                                                                                   </div>
+                                                                                                                                                     </div>
+                                                                                                                                                     </div>
+
+                                                                                                                                                     <input type="file" id="file" hidden accept="image/*">
+                                                                                                                                                     <script>
+                                                                                                                                                     let currentSlot=null;
+                                                                                                                                                     function openBinder(){document.getElementById('cover').style.display='none';document.getElementById('page').classList.add('active')}
+                                                                                                                                                     function closeBinder(){document.getElementById('cover').style.display='block';document.getElementById('page').classList.remove('active')}
+                                                                                                                                                     function addPhoto(el){currentSlot=el;document.getElementById('file').click()}
+                                                                                                                                                     document.getElementById('file').onchange=e=>{
+                                                                                                                                                       const file=e.target.files[0]; if(!file)return;
+                                                                                                                                                         const url=URL.createObjectURL(file);
+                                                                                                                                                           currentSlot.innerHTML=`<img src="${url}">`;
+                                                                                                                                                             updateCount()
+                                                                                                                                                             }
+                                                                                                                                                             function updateCount(){const filled=document.querySelectorAll('.slot img').length;document.getElementById('count').innerText=`${filled}/4 cheios`}
+                                                                                                                                                             function changeColor(c){document.querySelector('.grid').style.background=c}
+                                                                                                                                                             </script>
+                                                                                                                                                             </body>
+                                                                                                                                                             </html>
