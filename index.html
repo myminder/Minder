@@ -4,85 +4,97 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>MINDER</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&family=Caveat:wght@500;600&family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#D9E6EF;--ink:#1F3D2B;--yellow:#FFF6A8;--yellow-deep:#F2E99C;--line:#1F3D2B;--pink:#F5B9C8;--mint:#A8C4B0;}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;min-height:100vh}
-header{height:64px;background:#fff;border-bottom:3px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 18px;position:sticky;top:0;z-index:10}
-.h-left{display:flex;align-items:center;gap:12px;font-family:'Baloo 2';font-weight:800;font-size:24px;letter-spacing:.5px}
-.h-left.star{width:44px;height:44px;background:var(--yellow);border-radius:50%;display:grid;place-items:center;border:2px solid transparent}
-.h-right{font-weight:700;opacity:.9;display:flex;align-items:center;gap:6px}
-.wrap{min-height:calc(100vh - 64px);display:grid;place-items:center;padding:28px 18px 40px}
-.binder{width:min(92vw,400px);aspect-ratio:0.78;background:var(--yellow);border-radius:0 32px 32px 0;position:relative;box-shadow:12px 0 0 var(--yellow-deep), 0 24px 50px rgba(31,61,43,.18);border-left:18px solid #FFF9A9;cursor:pointer;transition:.35s}
-.binder::before{content:'';position:absolute;left:-18px;top:0;bottom:0;width:18px;background:linear-gradient(90deg,#FFF9A9,#F5EFA0);border-radius:24px 0 0 24px;box-shadow:inset -2px 0 0 rgba(0,0,0,.06)}
-.label{position:absolute;top:46%;left:50%;transform:translate(-50%,-50%) rotate(-1deg);width:78%;background:#fff;border-radius:18px;border:3px solid #EEE;padding:30px 20px 26px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.08),0 2px 0 #EDEDED}
-.label small{letter-spacing:4px;font-weight:800;font-size:12px;opacity:.9}
-.label h1{font-family:'Caveat';font-size:52px;line-height:.9;margin:14px 0 8px;font-weight:600;transform:rotate(-2deg)}
-.label p{font-family:'Baloo 2';color:#8AA195;font-size:17px;margin-top:4px}
-.s-star{position:absolute;left:14px;bottom:88px;font-size:64px;filter:drop-shadow(0 4px 0 rgba(0,0,0,.08))}
-.s-spark{position:absolute;right:28px;top:88px;font-size:38px}
-.page{width:min(94vw,420px);background:#fff;border-radius:28px;padding:16px 14px 20px;box-shadow:0 20px 50px rgba(0,0,0,.15);display:none}
-.page.on{display:block}
-.p-top{display:flex;justify-content:space-between;padding:6px 8px 14px;font-weight:800;font-family:'Baloo 2';font-size:17px}
-.grid{border-radius:24px;padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;background:var(--pink);transition:.3s}
-.slot{aspect-ratio:3/4.15;background:#DCE9DF;border:4px solid #fff;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12px;color:#7A9A86;font-weight:700;font-size:13.5px;line-height:1.2;cursor:pointer;overflow:hidden;position:relative;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
-.slot svg{width:56px;height:56px;margin-bottom:10px;opacity:.85}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#D8E7F0;font-family:'Fredoka',sans-serif;color:#1E3525;min-height:100vh}
+.phone{max-width:420px;margin:0 auto;min-height:100vh;background:#FEFEFB;position:relative;padding-bottom:90px;box-shadow:0 0 0 1px rgba(0,0,0,.05),0 20px 80px rgba(0,0,0,.12)}
+.topbar{height:64px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;border-bottom:2.5px solid #1E3525;background:#fff;position:sticky;top:0;z-index:5}
+.logo{font-weight:800;font-size:22px;letter-spacing:.5px}
+.tabs{display:flex;gap:10px;margin:16px 20px}
+.tab-pill{padding:8px 18px;border-radius:999px;border:2px solid #1E3525;font-weight:600;font-size:14px;background:#fff;cursor:pointer}
+.tab-pill.active{background:#FFF2A6}
+.card-binder{margin:0 20px;background:#fff;border-radius:24px;padding:14px;border:2px solid #F0EFE9;box-shadow:0 12px 30px rgba(0,0,0,.08)}
+.binder-visual{aspect-ratio:1/1;background:linear-gradient(180deg,#FFF6B0,#F3E9A0);border-radius:20px;position:relative;display:grid;place-items:center;border-left:12px solid #FFF8B0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+.label{background:#fff;border-radius:12px;padding:14px 18px;transform:rotate(-2deg);box-shadow:0 8px 20px rgba(0,0,0,.1);border:2px solid #EEE;text-align:center;width:72%}
+.label h2{font-family:'Caveat';font-size:28px;line-height:.9}
+.star3d{position:absolute;right:18px;top:18px;font-size:36px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.15))}
+.section{padding:18px 20px 0}
+.section h3{font-size:16px;margin-bottom:10px}
+.cards-row{display:flex;gap:10px;overflow-x:auto}
+.mini-card{min-width:110px;height:84px;border-radius:16px;display:grid;place-items:center;font-weight:600;font-size:13px}
+.overview{display:flex;gap:10px;margin-top:12px}
+.ov{flex:1;background:#FFF2A6;border-radius:16px;padding:14px;text-align:center;font-weight:600;border:2px solid #F0E9A0}
+.grid-page{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#F2A9BA;padding:10px;border-radius:20px}
+.slot{aspect-ratio:3/4;background:#DCE9DF;border:3px solid #fff;border-radius:16px;display:grid;place-items:center;font-size:12px;text-align:center;color:#6B8A7A;cursor:pointer;position:relative;overflow:hidden}
 .slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.count{font-family:'Baloo 2'}
-.actions{margin-top:16px;display:grid;gap:10px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:0 4px}
-.pill{border:2.5px solid var(--line);border-radius:12px;padding:8px 14px;font-weight:800;background:#fff;font-family:'Baloo 2';cursor:pointer}
-.colors{display:flex;gap:12px;justify-content:center;margin-top:4px}
-.colors button{width:52px;height:52px;border-radius:50%;border:4px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.12),inset 0 -3px 0 rgba(0,0,0,.06);cursor:pointer;transition:.2s}
-.colors button.active{transform:scale(1.12);border-color:var(--line)}
-.footer{margin-top:18px;display:flex;justify-content:center}
-.footer button{border:2.5px solid var(--line);border-radius:999px;padding:10px 20px;font-family:'Baloo 2';font-weight:800;background:#fff}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#fff;border-top:2px solid #1E3525;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:10;border-radius:24px 24px 0 0}
+.b-item{display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:600;gap:4px;padding:6px 16px;border-radius:14px;cursor:pointer}
+.b-item.active{background:#FFF2A6;border:2px solid #1E3525}
+.view{display:none}.view.on{display:block}
 </style>
 </head>
 <body>
-<header><div class="h-left"><div class="star">★</div>MINDER</div><div class="h-right">Meus Binders ▼ ⚙️</div></header>
+<div class="phone">
+<div class="topbar"><div class="logo">★ MINDER</div><div>Meus Binders ▼</div></div>
 
-<div class="wrap">
-  <div class="binder" id="cover" onclick="openBinder()">
-      <div class="s-spark">✨</div>
-          <div class="label"><small>MINDER</small><h1>my first binder</h1><p>photocard archive</p></div>
-              <div class="s-star">⭐</div>
-                </div>
+<div class="view on" id="v-binders">
+<div class="tabs"><div class="tab-pill active">All</div><div class="tab-pill">Favorites</div><div class="tab-pill">Recent</div></div>
+<div class="card-binder" onclick="openInside()">
+<div class="binder-visual"><div class="star3d">⭐</div><div class="label"><small style="letter-spacing:3px;font-size:9px">MINDER</small><h2>my first binder -<br>photocard archive</h2></div></div>
+<div style="text-align:center;margin-top:12px"><b>my first binder</b><br><small style="opacity:.6">23 photocards • Updated 2 days ago</small></div>
+</div>
+<div class="section"><h3>Recent photocards</h3><div class="cards-row"><div class="mini-card" style="background:#FCCFE0">CARD 001</div><div class="mini-card" style="background:#CBE2FF">CARD 002</div><div class="mini-card" style="background:#D9C8FF">CARD 003</div></div></div>
+<div class="section"><h3>Overview</h3><div class="overview"><div class="ov">☆ 12 Favorites</div><div class="ov" style="background:#D8E7F0">☰ 3 Series</div></div></div>
+</div>
 
-                  <div class="page" id="page">
-                      <div class="p-top"><span>Página 1 de 8</span><span class="count" id="count">0/4 cheios</span></div>
-                          <div class="grid" id="grid">
-                                <div class="slot" onclick="pick(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8l2-2h3l2-2h4l2 2h3l2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="3"/><path d="M20 4v5M22 6.5h-5"/></svg><span>toque para colocar<br>um photocard</span></div>
-                                      <div class="slot" onclick="pick(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8l2-2h3l2-2h4l2 2h3l2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="3"/><path d="M20 4v5M22 6.5h-5"/></svg><span>toque para colocar<br>um photocard</span></div>
-                                            <div class="slot" onclick="pick(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8l2-2h3l2-2h4l2 2h3l2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="3"/><path d="M20 4v5M22 6.5h-5"/></svg><span>toque para colocar<br>um photocard</span></div>
-                                                  <div class="slot" onclick="pick(this)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8l2-2h3l2-2h4l2 2h3l2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="13" r="3"/><path d="M20 4v5M22 6.5h-5"/></svg><span>toque para colocar<br>um photocard</span></div>
-                                                      </div>
-                                                          <div class="footer"><button onclick="closeBinder()">← Voltar pra capa</button></div>
-                                                              <div class="actions">
-                                                                    <div class="row"><span style="font-family:'Baloo 2';font-weight:800">Decoração</span><span style="font-size:13px;opacity:.7">Escolha uma cor de fundo</span></div>
-                                                                          <div class="colors" id="colors">
-                                                                                  <button style="background:#A8C5B5" data-c="#A8C5B5" onclick="setColor(this)"></button>
-                                                                                          <button style="background:#F5B9C8" data-c="#F5B9C8" class="active" onclick="setColor(this)"></button>
-                                                                                                  <button style="background:#FFF6A8" data-c="#FFF6A8" onclick="setColor(this)"></button>
-                                                                                                          <button style="background:#C4B2FF" data-c="#C4B2FF" onclick="setColor(this)"></button>
-                                                                                                                  <button style="background:#FFD6A0" data-c="#FFD6A0" onclick="setColor(this)"></button>
-                                                                                                                          <button style="background:#A9D6FF" data-c="#A9D6FF" onclick="setColor(this)"></button>
-                                                                                                                                </div>
-                                                                                                                                    </div>
-                                                                                                                                      </div>
-                                                                                                                                      </div>
+<div class="view" id="v-inside">
+<div style="padding:16px 20px;display:flex;justify-content:space-between;font-weight:700"><span onclick="closeInside()" style="cursor:pointer">← Voltar</span><span id="count">0/4 cheios</span></div>
+<div style="margin:0 14px" class="grid-page" id="grid">
+<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
+<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
+<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
+<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
+</div>
+</div>
 
-                                                                                                                                      <input type="file" id="file" hidden accept="image/*">
-                                                                                                                                      <script>
-                                                                                                                                      let cur=null;
-                                                                                                                                      const cover=document.getElementById('cover'), page=document.getElementById('page'), grid=document.getElementById('grid'), file=document.getElementById('file'), count=document.getElementById('count');
-                                                                                                                                      function openBinder(){cover.style.display='none';page.classList.add('on')}
-                                                                                                                                      function closeBinder(){cover.style.display='block';page.classList.remove('on')}
-                                                                                                                                      function pick(el){cur=el;file.click()}
-                                                                                                                                      file.onchange=e=>{const f=e.target.files[0];if(!f)return;const url=URL.createObjectURL(f);cur.innerHTML=`<img src="${url}">`;update()}
-                                                                                                                                      function update(){const n=document.querySelectorAll('.slot img').length;count.textContent=n+'/4 cheios'}
-                                                                                                                                      function setColor(btn){document.querySelectorAll('.colors button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');grid.style.background=btn.dataset.c}
-                                                                                                                                      </script>
-                                                                                                                                      </body>
-                                                                                                                                      </html>
+<div class="view" id="v-home" style="padding:30px 20px"><h2>Home</h2><p style="margin-top:10px;opacity:.7">Seu feed de photocards vai aparecer aqui. Em breve ✨</p></div>
+<div class="view" id="v-explore" style="padding:30px 20px"><h2>Explore</h2><p style="margin-top:10px;opacity:.7">Descubra binders de outras pessoas 🌸</p></div>
+<div class="view" id="v-profile" style="padding:30px 20px"><h2>Profile</h2><p style="margin-top:10px;opacity:.7">Sua coleção, suas estatísticas 💛</p></div>
+
+<div class="bottom">
+<div class="b-item" onclick="switchTab('home',this)">🏠<span>Home</span></div>
+<div class="b-item active" onclick="switchTab('binders',this)">📒<span>Binders</span></div>
+<div class="b-item" onclick="switchTab('explore',this)">🧭<span>Explore</span></div>
+<div class="b-item" onclick="switchTab('profile',this)">👤<span>Profile</span></div>
+</div>
+</div>
+
+<input type="file" id="file" hidden accept="image/*">
+<script>
+let cur=null;
+function switchTab(name,el){
+document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+document.getElementById('v-'+name).classList.add('on');
+document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active'));
+el.classList.add('active');
+}
+function openInside(){
+document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+document.getElementById('v-inside').classList.add('on');
+}
+function closeInside(){
+document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+document.getElementById('v-binders').classList.add('on');
+document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.b-item')[1].classList.add('active');
+}
+function pick(el){cur=el;document.getElementById('file').click()}
+document.getElementById('file').onchange=e=>{
+const url=URL.createObjectURL(e.target.files[0]);
+cur.innerHTML=`<img src="${url}">`;
+document.getElementById('count').textContent=document.querySelectorAll('.slot img').length+'/4 cheios';
+}
+</script>
+</body>
+</html>
