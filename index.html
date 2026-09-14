@@ -1,100 +1,139 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MINDER</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#D8E7F0;font-family:'Fredoka',sans-serif;color:#1E3525;min-height:100vh}
-.phone{max-width:420px;margin:0 auto;min-height:100vh;background:#FEFEFB;position:relative;padding-bottom:90px;box-shadow:0 0 0 1px rgba(0,0,0,.05),0 20px 80px rgba(0,0,0,.12)}
-.topbar{height:64px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;border-bottom:2.5px solid #1E3525;background:#fff;position:sticky;top:0;z-index:5}
-.logo{font-weight:800;font-size:22px;letter-spacing:.5px}
-.tabs{display:flex;gap:10px;margin:16px 20px}
-.tab-pill{padding:8px 18px;border-radius:999px;border:2px solid #1E3525;font-weight:600;font-size:14px;background:#fff;cursor:pointer}
-.tab-pill.active{background:#FFF2A6}
-.card-binder{margin:0 20px;background:#fff;border-radius:24px;padding:14px;border:2px solid #F0EFE9;box-shadow:0 12px 30px rgba(0,0,0,.08)}
-.binder-visual{aspect-ratio:1/1;background:linear-gradient(180deg,#FFF6B0,#F3E9A0);border-radius:20px;position:relative;display:grid;place-items:center;border-left:12px solid #FFF8B0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
-.label{background:#fff;border-radius:12px;padding:14px 18px;transform:rotate(-2deg);box-shadow:0 8px 20px rgba(0,0,0,.1);border:2px solid #EEE;text-align:center;width:72%}
-.label h2{font-family:'Caveat';font-size:28px;line-height:.9}
-.star3d{position:absolute;right:18px;top:18px;font-size:36px;filter:drop-shadow(0 6px 8px rgba(0,0,0,.15))}
-.section{padding:18px 20px 0}
-.section h3{font-size:16px;margin-bottom:10px}
-.cards-row{display:flex;gap:10px;overflow-x:auto}
-.mini-card{min-width:110px;height:84px;border-radius:16px;display:grid;place-items:center;font-weight:600;font-size:13px}
-.overview{display:flex;gap:10px;margin-top:12px}
-.ov{flex:1;background:#FFF2A6;border-radius:16px;padding:14px;text-align:center;font-weight:600;border:2px solid #F0E9A0}
-.grid-page{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#F2A9BA;padding:10px;border-radius:20px}
-.slot{aspect-ratio:3/4;background:#DCE9DF;border:3px solid #fff;border-radius:16px;display:grid;place-items:center;font-size:12px;text-align:center;color:#6B8A7A;cursor:pointer;position:relative;overflow:hidden}
-.slot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:420px;background:#fff;border-top:2px solid #1E3525;display:flex;justify-content:space-around;padding:10px 0 14px;z-index:10;border-radius:24px 24px 0 0}
-.b-item{display:flex;flex-direction:column;align-items:center;font-size:11px;font-weight:600;gap:4px;padding:6px 16px;border-radius:14px;cursor:pointer}
-.b-item.active{background:#FFF2A6;border:2px solid #1E3525}
-.view{display:none}.view.on{display:block}
+*{margin:0;padding:0;box-sizing:border-box}body{background:#F5F5F3;font-family:'Inter',sans-serif}
+.app{max-width:430px;margin:0 auto;background:#F7F7F8;min-height:100vh;display:flex;flex-direction:column;position:relative;border-left:2.5px solid #111;border-right:2.5px solid #111}
+.top{height:58px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:2.5px solid #111;background:#F7F7F8;position:sticky;top:0;z-index:2}
+.view{display:none;flex:1;flex-direction:column}.view.on{display:flex}
+
+/* SHELF - minimalista igual sua foto */
+.shelf{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.binderCard{cursor:pointer}.cover{aspect-ratio:3/4.1;background:#3A3A3A;border-radius:0 14px 14px 0;box-shadow:4px 6px 0 #111;border:1.5px solid #111;position:relative;overflow:hidden}
+.lock{position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:42px;height:32px;background:#9AA0B8;border-radius:10px 0 0 10px;display:grid;place-items:center;border:1.5px solid #111}
+.lock:after{content:'';width:14px;height:14px;background:#F7F7F8;border-radius:50%;border:1.5px solid #111}
+.meta{padding:8px 2px;display:flex;justify-content:space-between}.meta b{font-size:13px}.meta p{font-size:11px;opacity:.4}
+
+/* BINDER PHYSICAL */
+.binderView{flex:1;background:#D8D6D1;display:flex;flex-direction:column}
+.rings{height:52px;background:#F7F7F8;border-bottom:2.5px solid #111;display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-weight:800}
+.page{flex:1;margin:10px;background:#EDEAE3;border-radius:10px;padding:10px;display:flex;flex-direction:column}
+.sheet{flex:1;background:#FFFEFB;border-radius:8px;padding:8px;display:grid;gap:8px;border:1.5px solid rgba(0,0,0,.1)}
+.cols-3{grid-template-columns:repeat(3,1fr)}.cols-2{grid-template-columns:repeat(2,1fr)}
+.pocket{background:linear-gradient(135deg,#fff 0%,#f3f3f3 100%);border:1.5px solid #111;border-radius:8px;aspect-ratio:3/4.2;position:relative;overflow:hidden;cursor:pointer;box-shadow:2px 2px 0 #111}
+.pocket:before{content:'';position:absolute;top:0;left:0;right:35%;height:30%;background:linear-gradient(180deg,rgba(255,255,255,.8),transparent);z-index:2;pointer-events:none}
+.pocket img{position:absolute;inset:4px;width:calc(100% - 8px);height:calc(100% - 8px);object-fit:cover;border-radius:4px;animation:slide.3s}
+@keyframes slide{from{transform:translateY(12px);opacity:0}to{transform:translateY(0);opacity:1}}
+.add{width:100%;height:100%;display:grid;place-items:center;font-size:20px;opacity:.2}
+.status{position:absolute;bottom:3px;left:3px;right:3px;height:13px;border-radius:999px;font-size:7px;font-weight:800;display:grid;place-items:center;border:1px solid #111;z-index:3}
+.s-want{background:#fff}.s-way{background:#FFEFA0}.s-have{background:#C6E8C6}
+
+/* LIBRARY */
+.libGrid{padding:12px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.lib{border:2px solid #111;border-radius:10px;overflow:hidden;background:#fff;box-shadow:3px 3px 0 #111;cursor:pointer}
+.lib img{width:100%;aspect-ratio:1;object-fit:cover}
+.lib span{display:block;padding:6px 8px;font-size:11px;font-weight:700}
+
+/* CHAT */
+.chat{flex:1;padding:12px;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.bubble{max-width:78%;padding:10px 12px;border:2px solid #111;border-radius:14px;font-size:13px}
+.me{align-self:flex-end;background:#FFEFA0;border-radius:14px 14px 0 14px}
+.other{align-self:flex-start;background:#fff;border-radius:14px 14px 14px 0}
+.input{border-top:2.5px solid #111;display:flex;padding:8px;gap:8px;background:#fff}
+.input input{flex:1;border:2px solid #111;border-radius:999px;padding:10px 12px}
+.input button{background:#111;color:#fff;border-radius:999px;padding:10px 16px;font-weight:800;border:none}
+
+.bottom{border-top:2.5px solid #111;display:flex;justify-content:space-around;padding:6px 0 10px;background:#fff;border-radius:18px 18px 0 0;margin-top:auto;position:sticky;bottom:0}
+.tab{opacity:.35;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 16px;border-radius:10px;cursor:pointer;border:2px solid transparent}
+.tab.active{opacity:1;background:#FFEFA0;border:2px solid #111}
 </style>
 </head>
 <body>
-<div class="phone">
-<div class="topbar"><div class="logo">★ MINDER</div><div>Meus Binders ▼</div></div>
+<div class="app">
+<div class="top"><span>★ MINDER</span><button onclick="newBinder()" style="background:#111;color:#fff;border-radius:999px;padding:8px 14px;border:none;font-weight:800">+ New Binder</button></div>
 
 <div class="view on" id="v-binders">
-<div class="tabs"><div class="tab-pill active">All</div><div class="tab-pill">Favorites</div><div class="tab-pill">Recent</div></div>
-<div class="card-binder" onclick="openInside()">
-<div class="binder-visual"><div class="star3d">⭐</div><div class="label"><small style="letter-spacing:3px;font-size:9px">MINDER</small><h2>my first binder -<br>photocard archive</h2></div></div>
-<div style="text-align:center;margin-top:12px"><b>my first binder</b><br><small style="opacity:.6">23 photocards • Updated 2 days ago</small></div>
-</div>
-<div class="section"><h3>Recent photocards</h3><div class="cards-row"><div class="mini-card" style="background:#FCCFE0">CARD 001</div><div class="mini-card" style="background:#CBE2FF">CARD 002</div><div class="mini-card" style="background:#D9C8FF">CARD 003</div></div></div>
-<div class="section"><h3>Overview</h3><div class="overview"><div class="ov">☆ 12 Favorites</div><div class="ov" style="background:#D8E7F0">☰ 3 Series</div></div></div>
+<div class="shelf" id="shelf"></div>
 </div>
 
-<div class="view" id="v-inside">
-<div style="padding:16px 20px;display:flex;justify-content:space-between;font-weight:700"><span onclick="closeInside()" style="cursor:pointer">← Voltar</span><span id="count">0/4 cheios</span></div>
-<div style="margin:0 14px" class="grid-page" id="grid">
-<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
-<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
-<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
-<div class="slot" onclick="pick(this)">📷<br>toque para<br>colocar</div>
+<div class="view" id="v-inside" style="background:#D8D6D1">
+<div class="rings"><span onclick="closeBinder()" style="cursor:pointer">←</span><span id="info" style="font-size:12px"></span><span onclick="nextPage()" style="cursor:pointer">+ página</span></div>
+<div class="page">
+<div class="sheet cols-3" id="sheet"></div>
+<div style="display:flex;justify-content:center;gap:8px;margin-top:10px"><button onclick="setCol(3)" id="c3" style="border:2px solid #111;border-radius:999px;padding:6px 12px;background:#111;color:#fff;font-weight:700">3x3</button><button onclick="setCol(2)" id="c2" style="border:2px solid #111;border-radius:999px;padding:6px 12px;background:#fff;font-weight:700">2x2</button></div>
 </div>
 </div>
 
-<div class="view" id="v-home" style="padding:30px 20px"><h2>Home</h2><p style="margin-top:10px;opacity:.7">Seu feed de photocards vai aparecer aqui. Em breve ✨</p></div>
-<div class="view" id="v-explore" style="padding:30px 20px"><h2>Explore</h2><p style="margin-top:10px;opacity:.7">Descubra binders de outras pessoas 🌸</p></div>
-<div class="view" id="v-profile" style="padding:30px 20px"><h2>Profile</h2><p style="margin-top:10px;opacity:.7">Sua coleção, suas estatísticas 💛</p></div>
+<div class="view" id="v-lib">
+<div style="padding:12px 14px;font-size:12px;opacity:.6">Biblioteca da comunidade - fotos limpas upadas para ajudar. Toque para adicionar ao seu binder.</div>
+<div class="libGrid" id="libGrid"></div>
+</div>
+
+<div class="view" id="v-chat">
+<div class="chat" id="chatBox">
+<div class="bubble other"><b>enhafan</b><br>alguém coleciona orange blood? to organizando meu binder</div>
+<div class="bubble me">eu! peguei as fotos da biblioteca, me salvou muito</div>
+</div>
+<div class="input"><input id="msg" placeholder="conversar, fazer amigos..."><button onclick="send()">enviar</button></div>
+</div>
 
 <div class="bottom">
-<div class="b-item" onclick="switchTab('home',this)">🏠<span>Home</span></div>
-<div class="b-item active" onclick="switchTab('binders',this)">📒<span>Binders</span></div>
-<div class="b-item" onclick="switchTab('explore',this)">🧭<span>Explore</span></div>
-<div class="b-item" onclick="switchTab('profile',this)">👤<span>Profile</span></div>
+<div class="tab active" onclick="go('binders',this)">📒<span>Binders</span></div>
+<div class="tab" onclick="go('lib',this)">🖼️<span>Biblioteca</span></div>
+<div class="tab" onclick="go('chat',this)">💬<span>Chat</span></div>
 </div>
 </div>
 
 <input type="file" id="file" hidden accept="image/*">
 <script>
-let cur=null;
-function switchTab(name,el){
+let binders=[{name:'Orange Blood',cols:3,sheets:[Array(9).fill(null)]}];
+let curB=0,curS=0,curP=null;
+let library=[
+'https://picsum.photos/300/300?random=1','https://picsum.photos/300/300?random=2',
+'https://picsum.photos/300/300?random=3','https://picsum.photos/300/300?random=4'
+];
+
+function go(name,el){
 document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-document.getElementById('v-'+name).classList.add('on');
-document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active'));
-el.classList.add('active');
+if(name==='binders'){document.getElementById('v-binders').classList.add('on')}
+else document.getElementById('v-'+name).classList.add('on');
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));el.classList.add('active');
+if(name==='binders')renderShelf();
 }
-function openInside(){
-document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-document.getElementById('v-inside').classList.add('on');
+function renderShelf(){
+let g=document.getElementById('shelf');g.innerHTML='';
+binders.forEach((b,i)=>{
+let d=document.createElement('div');d.className='binderCard';d.onclick=()=>openB(i);
+d.innerHTML=`<div class="cover"><div class="lock"></div></div><div class="meta"><div><b>${b.name}</b><p>${b.sheets.flat().filter(Boolean).length} cards</p></div><span>⋯</span></div>`;
+g.appendChild(d);
+});
 }
-function closeInside(){
-document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
-document.getElementById('v-binders').classList.add('on');
-document.querySelectorAll('.b-item').forEach(b=>b.classList.remove('active'));
-document.querySelectorAll('.b-item')[1].classList.add('active');
+function openB(i){curB=i;curS=0;document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('v-inside').classList.add('on');renderSheet()}
+function closeBinder(){document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('v-binders').classList.add('on');document.querySelectorAll('.tab')[0].classList.add('active');renderShelf()}
+function renderSheet(){
+let b=binders[curB];let arr=b.sheets[curS];
+let sh=document.getElementById('sheet');sh.className='sheet cols-'+b.cols;sh.innerHTML='';
+document.getElementById('info').textContent=`${b.name} • pág ${curS+1}/${b.sheets.length}`;
+arr.forEach((pc,idx)=>{
+let p=document.createElement('div');p.className='pocket';
+if(pc)p.innerHTML=`<img src="${pc.url}"><div class="status s-${pc.st}">${pc.st==='want'?'quero':pc.st==='way'?'a caminho':'tenho'}</div>`;
+else p.innerHTML=`<div class="add">+</div>`;
+p.onclick=()=>{curP=idx;file.click()};
+p.oncontextmenu=e=>{e.preventDefault();if(pc){pc.st=pc.st==='want'?'way':pc.st==='way'?'have':'want';renderSheet()}};
+let t; p.ontouchstart=()=>{t=setTimeout(()=>{if(pc){pc.st=pc.st==='want'?'way':pc.st==='way'?'have':'want';renderSheet()}},600)};p.ontouchend=()=>clearTimeout(t);
+sh.appendChild(p);
+});
 }
-function pick(el){cur=el;document.getElementById('file').click()}
-document.getElementById('file').onchange=e=>{
-const url=URL.createObjectURL(e.target.files[0]);
-cur.innerHTML=`<img src="${url}">`;
-document.getElementById('count').textContent=document.querySelectorAll('.slot img').length+'/4 cheios';
-}
+function setCol(c){let b=binders[curB];let need=c===2?4:9;let cur=b.sheets[curS];let na=Array(need).fill(null);for(let i=0;i<Math.min(cur.length,na.length);i++)na[i]=cur[i];b.sheets[curS]=na;b.cols=c;document.getElementById('c3').style.background=c===3?'#111':'#fff';document.getElementById('c3').style.color=c===3?'#fff':'#111';document.getElementById('c2').style.background=c===2?'#111':'#fff';document.getElementById('c2').style.color=c===2?'#fff':'#111';renderSheet()}
+function nextPage(){let b=binders[curB];if(curS<b.sheets.length-1)curS++;else{b.sheets.push(Array(b.cols===2?4:9).fill(null));curS=b.sheets.length-1}renderSheet()}
+file.onchange=e=>{let url=URL.createObjectURL(e.target.files[0]);binders[curB].sheets[curS][curP]={url,st:'want'};renderSheet();renderShelf()};
+function newBinder(){let n=prompt('Nome do binder:','My Binder');if(!n)return;binders.unshift({name:n,cols:3,sheets:[Array(9).fill(null)]});renderShelf()}
+function renderLib(){let g=document.getElementById('libGrid');g.innerHTML='';library.forEach(u=>{let d=document.createElement('div');d.className='lib';d.innerHTML=`<img src="${u}"><span>photocard scan</span>`;d.onclick=()=>{binders[curB].sheets[curS].push({url:u,st:'want'});go('binders',document.querySelectorAll('.tab')[0])};g.appendChild(d)})}
+function send(){let t=document.getElementById('msg').value.trim();if(!t)return;let b=document.createElement('div');b.className='bubble me';b.textContent=t;document.getElementById('chatBox').appendChild(b);document.getElementById('msg').value='';document.getElementById('chatBox').scrollTop=9999}
+renderShelf();renderLib();
 </script>
 </body>
 </html>
