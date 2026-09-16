@@ -1,66 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MINDER</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MINDER - Editor</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#F5F5F3;display:flex;justify-content:center}
-.app{width:100%;max-width:430px;background:#fff;min-height:100vh;padding-bottom:80px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1.5px solid #111}
-.top h1{font-size:28px;font-weight:900;letter-spacing:-1px}
-.cam{width:38px;height:38px;border-radius:50%;border:1.5px solid #111;background:#fff;display:grid;place-items:center}
-.newbar{display:flex;justify-content:flex-end;padding:12px 20px;background:#F3F1F8}
-.btn-new{background:#111;color:#fff;border:none;border-radius:999px;padding:9px 16px;font-size:12px;font-weight:700}
-.shelfWrap{background:#F3F1F8;display:flex;flex-direction:column;align-items:center;padding:14px 0 26px}
+body{background:#F5F5F5;display:flex;justify-content:center}
+.app{width:100%;max-width:430px;background:#fff;min-height:100vh;position:relative}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid #eee}
+.top b{font-size:14px}
+.stage{background:#fff;display:flex;flex-direction:column;align-items:center;padding:22px 0 12px;position:relative}
+.binder{width:168px;height:218px;border-radius:4px 14px 14px 4px;position:relative;box-shadow:0 10px 24px rgba(0,0,0,.12);background:#C8A082;overflow:hidden}
+.binder::before{content:'';position:absolute;left:0;top:0;bottom:0;width:14px;background:rgba(0,0,0,.08)}
+.clasp{position:absolute;right:-8px;top:50%;transform:translateY(-50%);width:30px;height:38px;background:inherit;filter:brightness(.9);border-radius:8px;display:grid;place-items:center}
+.clasp::after{content:'';width:14px;height:14px;background:#fff;border-radius:50%;box-shadow:0 0 0 3px rgba(0,0,0,.15)}
+.sticker{position:absolute;font-size:22px;cursor:grab;user-select:none;touch-action:none}
+.title{font-family:Impact, sans-serif;letter-spacing:1px;text-align:center;margin:8px 0 0;font-size:22px;-webkit-text-stroke:1.5px #fff;text-stroke:1.5px #fff}
 
-/* BINDER LISO - OPÇÃO C */
-.binder{width:160px;height:212px;border-radius:4px 14px 14px 4px;position:relative;box-shadow:0 10px 22px rgba(0,0,0,.15);transition:.25s}
-.binder::before{content:'';position:absolute;left:0;top:0;bottom:0;width:15px;background:rgba(0,0,0,.08);border-radius:4px 0 0 4px}
-.dots{position:absolute;top:8px;right:10px;cursor:pointer;font-size:18px;color:rgba(0,0,0,.45);z-index:5;background:rgba(255,255,255,.6);width:24px;height:24px;border-radius:50%;display:grid;place-items:center}
+.editor{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,.18);max-height:58vh;overflow:auto}
+.head{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:#fff;z-index:5;border-bottom:1px solid #eee}
+.swatches{display:flex;gap:8px;padding:12px 16px;flex-wrap:wrap}
+.dot{width:22px;height:22px;border-radius:6px;cursor:pointer;border:2px solid #fff;box-shadow:0 0 0 1px #ddd}
+.wheelWrap{display:flex;justify-content:center;gap:20px;padding:10px 16px;align-items:center}
+.wheel{width:132px;height:132px;border-radius:50%;background:conic-gradient(red,yellow,lime,aqua,blue,magenta,red);position:relative;cursor:pointer}
+.wheel::after{content:'';position:absolute;inset:22px;background:#fff;border-radius:50%}
+.picker{position:absolute;width:14px;height:14px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #000;left:50%;top:20%;transform:translate(-50%,-50%)}
+.slider{width:100%;height:6px;background:linear-gradient(to right,#000,var(--c),#fff);border-radius:99px;margin-top:12px;position:relative}
+.handle{position:absolute;top:50%;left:60%;width:16px;height:16px;background:#fff;border:2px solid #888;border-radius:50%;transform:translate(-50%,-50%)}
 
-.menu{position:absolute;top:34px;right:0;background:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);width:190px;display:none;z-index:20;overflow:hidden;border:1px solid #eee}
-.menu b{display:block;padding:12px 14px 6px;font-size:11px;opacity:.5;letter-spacing:.5px}
-.menu div{padding:10px 14px;font-size:13px;cursor:pointer;display:flex;gap:8px;align-items:center}
-.menu div:hover{background:#F5F3FF}
-.color-dot{width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px #ddd}
+.stickersBar{display:flex;gap:10px;padding:12px 16px;overflow:auto;border-top:1px solid #eee;margin-top:10px}
+.stk{font-size:26px;min-width:36px;height:36px;display:grid;place-items:center;background:#F6F5F9;border-radius:8px;cursor:pointer}
 
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:#fff;border-top:1.2px solid #111;display:flex;justify-content:space-around;padding:10px 0}
-.tab{font-size:10px;font-weight:700;opacity:.35;text-align:center}.tab.active{opacity:1}
+.bottom{display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #eee;margin-top:8px}
 </style>
 </head>
 <body>
 <div class="app">
-<div class="top"><h1>MINDER</h1><div class="cam">📷</div></div>
-<div class="newbar"><button class="btn-new">+ Novo binder</button></div>
-<div class="shelfWrap">
-<div class="binder" id="binder" style="background:#FFC5DB">
-<span class="dots" onclick="toggleMenu(event)">⋮</span>
-<div class="menu" id="menu">
-<b>COR DA CAPA</b>
-<div onclick="setColor('#FFC5DB')"><span class="color-dot" style="background:#FFC5DB"></span>Rosa - NewJeans</div>
-<div onclick="setColor('#2A2A2A')"><span class="color-dot" style="background:#2A2A2A"></span>Preto - I LOVE DREAM</div>
-<div onclick="setColor('#FFE6A5')"><span class="color-dot" style="background:#FFE6A5"></span>Amarelo</div>
-<div onclick="setColor('#A5D6FF')"><span class="color-dot" style="background:#A5D6FF"></span>Azul</div>
-<div onclick="setColor('#C5FFC5')"><span class="color-dot" style="background:#C5FFC5"></span>Verde</div>
-<div onclick="setColor('#E9D5FF')"><span class="color-dot" style="background:#E9D5FF"></span>Lilás</div>
-<b style="margin-top:6px;border-top:1px solid #eee;padding-top:10px">AÇÕES</b>
-<div onclick="editName()">✏️ Renomear</div>
-<div onclick="clearAll()" style="color:#E53E3E">🗑️ Apagar</div>
+<div class="top"><span>←</span><b>New Diary ✎</b><span style="font-size:11px">Dayol mark ○</span></div>
+
+<div class="stage">
+<div class="title" id="msg">YOU CAN COSTUMISE<br>YOUR NOTEBOOK COVER</div>
+<div class="binder" id="binder"><div class="clasp"></div></div>
+<div style="font-size:10px;color:#999;margin-top:10px">You can zoom in/out with two fingers!</div>
+</div>
+
+<div class="editor" id="editor">
+<div class="head"><b style="font-family:Impact">CHOOSE YOUR FAV COLOURS</b><span onclick="editor.style.display='none'">⌄</span></div>
+<div class="swatches" id="swatches"></div>
+<div class="wheelWrap">
+<div class="wheel" id="wheel" onclick="pickColor(event)"><div class="picker" id="picker"></div></div>
+<div style="flex:1">
+<div id="current" style="width:22px;height:22px;border-radius:50%;background:#C8A082;border:1px solid #ddd"></div>
+<div class="slider" id="slider" style="--c:#C8A082"><div class="handle" id="handle"></div></div>
+<div style="font-size:10px;color:#999;margin-top:8px">Add Cover Color</div>
 </div>
 </div>
-<div style="margin-top:12px;font-size:11px;color:#777" id="label">New • liso</div>
+<div style="padding:12px 16px">
+<div style="font-family:Impact;font-size:20px;text-align:center">YOU CAN ADD STICKERS</div>
+<div class="stickersBar" id="stBar">
+<span class="stk" onclick="addSticker('H')">H</span><span class="stk" onclick="addSticker('I')">I</span>
+<span class="stk" onclick="addSticker('💖')">💖</span><span class="stk" onclick="addSticker('⭐')">⭐</span>
+<span class="stk" onclick="addSticker('🍎')">🍎</span><span class="stk" onclick="addSticker('🌈')">🌈</span>
+<span class="stk" onclick="addSticker('A')">A</span><span class="stk" onclick="addSticker('B')">B</span><span class="stk" onclick="addSticker('C')">C</span>
+<label class="stk" style="background:#111;color:#fff">+📷<input type="file" hidden accept="image/*" onchange="addPic(event)"></label>
 </div>
 </div>
-<div class="bottom"><div class="tab active">Binders</div><div class="tab">Biblioteca</div><div class="tab">Chat</div></div>
+<div class="bottom"><span>🖌️</span><span>✏️</span><span>🔤</span><span>🖼️</span></div>
 </div>
+</div>
+
 <script>
-function toggleMenu(e){e.stopPropagation();const m=document.getElementById('menu');m.style.display=m.style.display==='block'?'none':'block'}
-function setColor(c){document.getElementById('binder').style.background=c;document.getElementById('menu').style.display='none';document.getElementById('label').textContent='New • '+c}
-function editName(){let n=prompt('Nome:','Meu binder');if(n) document.getElementById('label').textContent=n}
-function clearAll(){if(confirm('Apagar?')) setColor('#FFC5DB')}
-document.addEventListener('click',()=>{document.getElementById('menu').style.display='none'})
-</script>
-</body>
-</html>
+const binder=document.getElementById('binder'), sw=document.getElementById('swatches'), msg=document.getElementById('msg');
+const colors=['#E9D5F8','#FFC5DB','#FF6B6B','#FF9F43','#FFD93D','#6BCB77','#4D96FF','#9D84B7','#C8A082','#8B6F47'];
+colors.forEach(c=>{let d=document.createElement('div');d.className='dot';d.style.background=c;d.onclick=()=>setCover(c);sw.appendChild(d)})
+
+function setCover(c){binder.style.background=c;document.getElementById('current').style.background=c;document.getElementById('slider').style.setProperty('--c',c);msg.textContent='MY FAV COLOUR IS...';msg.style.fontSize='18px'}
+
+function pickColor(e){
+ const rect=e.currentTarget.getBoundingClientRect();
+  const x=e.clientX-rect.left-rect.width/2, y=e.clientY-rect.top-rect.height/2;
+   const angle=Math.atan2(y,x); const hue=(angle*180/Math.PI+360)%360;
+    const c=`hsl(${hue},80%,60%)`;
+     setCover(c);
+      document.getElementById('picker').style.left=50+Math.cos(angle)*35+'%';
+       document.getElementById('picker').style.top=50+Math.sin(angle)*35+'%';
+       }
+
+       function addSticker(t){
+        const s=document.createElement('div');s.className='sticker';s.textContent=t;s.style.left='40%';s.style.top='40%';
+         binder.appendChild(s); makeDrag(s);
+          document.getElementById('msg').textContent='YOU CAN ADD STICKERS';
+          }
+
+          function addPic(e){
+           const file=e.target.files[0]; if(!file) return;
+            const url=URL.createObjectURL(file);
+             const img=document.createElement('img');img.src=url;img.className='sticker';img.style.width='48px';img.style.height='48px';img.style.objectFit='cover';img.style.borderRadius='6px';img.style.left='30%';img.style.top='30%';
+              binder.appendChild(img); makeDrag(img);
+              }
+
+              function makeDrag(el){
+               let sx,sy,ox,oy;
+                el.addEventListener('pointerdown',e=>{sx=e.clientX;sy=e.clientY;ox=el.offsetLeft;oy=el.offsetTop;el.setPointerCapture(e.pointerId)});
+                 el.addEventListener('pointermove',e=>{if(sx==null)return;el.style.left=ox+e.clientX-sx+'px';el.style.top=oy+e.clientY-sy+'px'});
+                  el.addEventListener('pointerup',()=>{sx=null});
+                  }
+                  </script>
+                  </body>
+                  </html>
