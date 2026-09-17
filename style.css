@@ -1,1 +1,12 @@
-body{background:#fff8dc;font-family:sans-serif;display:flex;justify-content:center}.binder{background:#FFEB3B;padding:20px;border-radius:20px;width:350px;border:3px solid black}h1{text-align:center}.pagina{background:white;padding:15px;border-radius:15px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.photocard{background:#eee;height:120px;border-radius:10px;display:flex;align-items:center;justify-content:center;border:2px dashed #ccc}
+/* style.css - AQUI FICA TODO O VISUAL */
+html,body{overscroll-behavior:none;overflow:hidden;position:fixed;width:100%;height:100%}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{background:#fff;display:flex;justify-content:center}
+.app{width:100%;max-width:420px;height:100dvh;background:#fff;position:relative;display:flex;flex-direction:column}
+.binder{width:124px;height:172px;background:#CC7A4A;border-radius:4px 12px 12px 4px;position:relative;box-shadow:0 10px 20px rgba(0,0,0,.18)}
+.binder::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:rgba(0,0,0,.12)}
+.clasp{position:absolute;right:-16px;top:50%;transform:translateY(-50%);width:42px;height:46px;background:inherit;border-radius:12px 4px 4px 12px;display:grid;place-items:center}
+.claspDot{width:24px;height:24px;background:#fff;border-radius:50%}
+.ico{width:22px;height:22px;stroke:#111;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.editScreen{position:absolute;inset:0;background:#fff;z-index:100;display:none;flex-direction:column}
+@media(min-width:800px){ body{background:#F5F5F5} .app{max-width:1100px;margin:20px;border-radius:20px} }
