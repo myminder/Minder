@@ -4,120 +4,80 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MINDER</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{background:#fff;display:flex;justify-content:center}
-.app{width:100%;max-width:390px;min-height:100vh;background:#fff;position:relative;overflow:hidden}
+body{background:#EAEAEA;display:flex;justify-content:center}
+.app{width:100%;max-width:400px;min-height:100vh;background:#fff;position:relative;padding-bottom:100px}
 
-/* HOME - binder liso */
-.home{padding:20px;min-height:100vh;background:#fff}
-.topHome{display:flex;justify-content:space-between;align-items:center}
-.binderHome{width:115px;height:152px;background:#D88C76;border-radius:8px 12px 12px 8px;position:relative;box-shadow:0 6px 14px rgba(0,0,0,.13);cursor:pointer}
-.binderHome::after{content:'';position:absolute;right:-6px;top:50%;transform:translateY(-50%);width:16px;height:26px;background:#2b2b2b;border-radius:5px}
-.menu{position:absolute;left:130px;top:30px;background:#fff;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,.15);width:160px;padding:8px;display:none;z-index:20;border:1px solid #f0f0f0}
-.menu div{padding:12px;font-size:14px;font-weight:500;cursor:pointer;border-radius:10px}
-.menu div:hover{background:#f5f5f5}
+.header{height:52px;display:flex;align-items:center;justify-content:center;position:relative;background:#fff}
+.header h1{font-size:24px;font-weight:900;letter-spacing:1.5px}
+.bell{position:absolute;right:14px;top:12px;width:28px;height:28px;background:#fff;border-radius:50%;display:grid;place-items:center;font-size:18px}
 
-/* EDITOR - tela do video */
-.editor{position:fixed;inset:0;background:#fff;z-index:100;display:none;flex-direction:column;max-width:390px;left:50%;transform:translateX(-50%);height:100dvh}
-.topEdit{height:46px;display:flex;justify-content:space-between;align-items:center;padding:0 16px;border-bottom:1px solid #eee;font-size:13px}
-.middle{flex:1;display:flex;flex-direction:column;align-items:center;padding-top:16px;background:#fff}
-.title{font-weight:700;font-size:15px;text-align:center;line-height:1.2}
-.binderEdit{width:132px;height:178px;background:#D88C76;border-radius:4px 12px 12px 4px;position:relative;margin-top:14px;box-shadow:0 8px 18px rgba(0,0,0,.12);overflow:hidden;touch-action:none}
-.hint{font-size:10px;color:#bbb;margin-top:10px}
-.sheet{margin-top:auto;background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.08);padding:14px 16px 20px}
-.label{font-size:11px;font-weight:700;text-align:center;letter-spacing:.5px;margin-bottom:10px}
-.dots{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.dot{width:26px;height:26px;border-radius:8px;cursor:pointer}
-.wheel{width:120px;height:120px;border-radius:50%;background:conic-gradient(red,orange,yellow,lime,cyan,blue,magenta,red);margin:14px auto 0;position:relative}
-.wheel::after{content:'';position:absolute;inset:20px;background:#fff;border-radius:50%}
-.photo{position:absolute;left:25%;top:30%;width:70px;height:70px;touch-action:none}
-.photo img{width:100%;height:100%;object-fit:cover;border-radius:6px;display:block}
-.handle{position:absolute;right:-5px;bottom:-5px;width:14px;height:14px;background:#111;border-radius:50%;border:2px solid #fff}
+.topAction{display:flex;justify-content:flex-end;padding:8px 14px;background:#fff}
+.btnNovo{background:#111;color:#fff;border:none;padding:9px 16px;border-radius:20px;font-size:13px;font-weight:700;letter-spacing:.2px}
+
+.binderArea{padding:0 16px;background:#fff}
+.binderWrap{width:118px}
+.binder{width:118px;height:155px;background:#fff;border-radius:10px 14px 14px 10px;position:relative;box-shadow:0 8px 18px rgba(0,0,0,.18);overflow:hidden;border:1px solid #eee}
+.binder img{width:100%;height:100%;object-fit:cover}
+.clasp{position:absolute;right:-7px;top:50%;transform:translateY(-50%);width:22px;height:30px;background:#111;border-radius:6px;display:grid;place-items:center;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.clasp::after{content:'';width:10px;height:10px;background:#fff;border-radius:50%}
+.binderLabel{margin-top:8px;font-size:12px;font-weight:500;display:flex;align-items:center;gap:6px}
+.binderLabel::after{content:'';width:14px;height:14px;background:#111;border-radius:50%;display:inline-block}
+
+.divider{height:1px;background:#EDEDED;margin:22px 16px}
+
+.recentesHead{display:flex;justify-content:space-between;align-items:center;padding:0 16px;margin-bottom:12px}
+.recentesHead h2{font-size:20px;font-weight:800}
+.recentesHead span{font-size:13px;color:#999;font-weight:500}
+
+.recentesGrid{display:flex;gap:10px;padding:0 16px;overflow-x:auto}
+.recentesGrid::-webkit-scrollbar{display:none}
+.rec{width:78px;height:112px;background:#111;border-radius:10px;flex-shrink:0}
+
+.statsBox{margin:22px 16px;background:#F7F5F6;border-radius:14px;display:flex;padding:14px 0;border:1px solid #F0EDEF}
+.stat{flex:1;text-align:center;border-right:1px solid #EAEAEA}
+.stat:last-child{border:none}
+.stat .icon{font-size:20px}
+.stat b{font-size:22px;font-weight:800;display:block;margin-top:2px}
+.stat p{font-size:11px;color:#666;margin-top:2px;font-weight:500}
+
+.bottomNav{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);width:92%;max-width:360px;background:#fff;border-radius:34px;box-shadow:0 10px 30px rgba(0,0,0,.14);display:flex;align-items:center;padding:8px 18px;border:1px solid #eee;z-index:10}
+.navItem{display:flex;flex-direction:column;align-items:center;gap:2px;font-size:10px;font-weight:600;opacity:.3}
+.navItem.active{opacity:1}
+.navItem .ico{font-size:20px}
 </style>
 </head>
 <body>
 <div class="app">
+<div class="header"><h1>MINDER</h1><div class="bell">🔔</div></div>
 
-<!-- TELA 1: HOME -->
-<div class="home" id="home">
-<div class="topHome"><b>MINDER</b><span style="font-size:11px">New Diary</span></div>
-<div style="position:relative;margin-top:30px">
-<div class="binderHome" id="bHome" onclick="document.getElementById('menu').style.display='block'"></div>
-<div style="margin-top:10px;font-size:13px">New binder</div>
-<div class="menu" id="menu">
-<div onclick="openEditor()">Editar capa</div>
-<div>Renomear</div>
-<div>Apagar</div>
-</div>
+<div class="topAction"><button class="btnNovo">+ Novo binder</button></div>
+
+<div class="binderArea">
+<div class="binderWrap">
+<div class="binder"><img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=300" style="filter: contrast(1.2) saturate(1.5);"><div class="clasp"></div></div>
+<div class="binderLabel">New binder</div>
 </div>
 </div>
 
-<!-- TELA 2: EDITOR -->
-<div class="editor" id="editor">
-<div class="topEdit"><span onclick="closeEditor()" style="cursor:pointer">← voltar</span><b>New Diary</b><span style="font-size:11px">Doyol</span></div>
-<div class="middle">
-<div class="title">YOU CAN COSTUMISE<br>YOUR NOTEBOOK COVER</div>
-<div class="binderEdit" id="bEdit" onclick="if(!hasPhoto) document.getElementById('file').click()"></div>
-<div class="hint">Toque no binder para adicionar foto - arraste e use 2 dedos para zoom</div>
-</div>
-<div class="sheet">
-<div class="label">CHOOSE YOUR FAV COLOURS</div>
-<div class="dots" id="dots"></div>
-<div class="wheel" id="wheel"></div>
-</div>
+<div class="divider"></div>
+
+<div class="recentesHead"><h2>Recentes</h2><span>Ver Tudo ›</span></div>
+<div class="recentesGrid">
+<div class="rec"></div><div class="rec"></div><div class="rec"></div><div class="rec"></div>
 </div>
 
-<input type="file" id="file" hidden accept="image/*">
+<div class="statsBox">
+<div class="stat"><div class="icon">🩷</div><b>0</b><p>Colecionados</p></div>
+<div class="stat"><div class="icon">⭐</div><b>0</b><p>Favoritos</p></div>
+<div class="stat"><div class="icon">📒</div><b>1</b><p>Binders</p></div>
 </div>
 
-<script>
-const bHome=document.getElementById('bHome'), bEdit=document.getElementById('bEdit'), home=document.getElementById('home'), editor=document.getElementById('editor'), file=document.getElementById('file'), dots=document.getElementById('dots');
-let hasPhoto=false;
-
-['#E8D5F7','#FFD6DE','#FF9A9A','#FFC978','#FFEA7A','#9ED69E','#9AB8FF','#D88C76'].forEach(c=>{
- let d=document.createElement('div'); d.className='dot'; d.style.background=c;
-  d.onclick=()=>{ bHome.style.background=c; bEdit.style.background=c; };
-   dots.appendChild(d);
-   });
-
-   function openEditor(){ document.getElementById('menu').style.display='none'; home.style.display='none'; editor.style.display='flex'; bEdit.style.background=bHome.style.background; }
-   function closeEditor(){ editor.style.display='none'; home.style.display='block'; }
-
-   document.getElementById('wheel').onclick=(e)=>{
-    const r=e.currentTarget.getBoundingClientRect(); const x=e.clientX-r.left-r.width/2, y=e.clientY-r.top-r.height/2;
-     const h=(Math.atan2(y,x)*180/Math.PI+360)%360; const c=`hsl(${h},70%,65%)`; bHome.style.background=c; bEdit.style.background=c;
-     };
-
-     file.onchange=(ev)=>{
-      const f=ev.target.files[0]; if(!f) return;
-       const url=URL.createObjectURL(f); hasPhoto=true;
-        const wrap=document.createElement('div'); wrap.className='photo';
-         wrap.innerHTML=`<img src="${url}"><div class="handle"></div>`;
-          bEdit.appendChild(wrap);
-           makeDrag(wrap);
-           };
-
-           function makeDrag(el){
-            let sx,sy,sl,st,sw,sh, resizing=false;
-             const handle=el.querySelector('.handle');
-              handle.addEventListener('pointerdown',(e)=>{ resizing=true; sx=e.clientX; sy=e.clientY; sw=el.offsetWidth; sh=el.offsetHeight; e.stopPropagation(); });
-               el.addEventListener('pointerdown',(e)=>{ if(resizing) return; sx=e.clientX; sy=e.clientY; sl=el.offsetLeft; st=el.offsetTop; el.setPointerCapture(e.pointerId); });
-                window.addEventListener('pointermove',(e)=>{
-                  if(sx===undefined) return;
-                    if(resizing){ let nw=Math.max(20,sw+(e.clientX-sx)); let nh=Math.max(20,sh+(e.clientY-sy)); el.style.width=nw+'px'; el.style.height=nh+'px'; }
-                      else{ el.style.left=sl+(e.clientX-sx)+'px'; el.style.top=st+(e.clientY-sy)+'px'; }
-                       });
-                        window.addEventListener('pointerup',()=>{ sx=undefined; resizing=false; });
-
-                         let lastDist=0;
-                          el.addEventListener('touchstart',(e)=>{ if(e.touches.length===2){ lastDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); } },{passive:false});
-                           el.addEventListener('touchmove',(e)=>{
-                             if(e.touches.length===2){ e.preventDefault(); let d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); let s=d/lastDist; let nw=el.offsetWidth*s, nh=el.offsetHeight*s; if(nw>20 && nw<200){ el.style.width=nw+'px'; el.style.height=nh+'px'; lastDist=d; } }
-                              },{passive:false});
-                              }
-
-                              document.addEventListener('click',(e)=>{ if(!e.target.closest('.binderHome') &&!e.target.closest('.menu')) document.getElementById('menu').style.display='none'; });
-                              </script>
-                              </body>
-                              </html>
+<div class="bottomNav">
+<div class="navItem active"><div class="ico">⌂</div><span>Home</span></div>
+</div>
+</div>
+</body>
+</html>
