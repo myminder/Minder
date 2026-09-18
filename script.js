@@ -1,38 +1,25 @@
-let total=1,cheios=0,pagina=1,alvoCapa=null;
-const binderArea=document.getElementById('binderArea'),binderPage=document.getElementById('binderPage'),modalNovo=document.getElementById('modalNovo'),colorPicker=document.getElementById('colorPicker'),grid=document.getElementById('recentesGrid');
-document.getElementById('btnNovo').onclick=e=>{e.stopPropagation();modalNovo.classList.remove('hidden');};
-document.getElementById('cancelar').onclick=()=>{modalNovo.classList.add('hidden');document.getElementById('inputNome').value='';};
-document.getElementById('criar').onclick=()=>{
-  const input=document.getElementById('inputNome');const nome=input.value.trim()||`Binder ${total+1}`;
-    const d=document.createElement('div');d.className='binder-card';d.dataset.name=nome;
-      d.innerHTML=`<div class="binder" style="--cor:#C69A6B"><div class="lacre"><span></span></div></div><div class="binder-info"><span class="label">${nome}</span><button class="dots-btn" type="button">...</button><div class="menu hidden"><button type="button" data-a="capa">Editar capa</button><button type="button" data-a="renomear">Renomear</button><button type="button" data-a="apagar" class="danger">Apagar</button></div></div>`;
-        binderArea.appendChild(d);total++;document.getElementById('cBinders').innerText=total;modalNovo.classList.add('hidden');input.value='';
-        };
-        binderArea.addEventListener('click',e=>{
-          const card=e.target.closest('.binder-card');if(!card)return;
-            const dotsBtn=e.target.closest('.dots-btn');const menuBtn=e.target.closest('.menu button');
-              if(dotsBtn){e.stopPropagation();const menu=card.querySelector('.menu');const isHidden=menu.classList.contains('hidden');document.querySelectorAll('.menu').forEach(m=>m.classList.add('hidden'));if(isHidden)menu.classList.remove('hidden');return;}
-                if(menuBtn){e.stopPropagation();const a=menuBtn.dataset.a;const binder=card.querySelector('.binder');const label=card.querySelector('.label');card.querySelector('.menu').classList.add('hidden');
-                    if(a==='capa'){alvoCapa=binder;colorPicker.click();}
-                        if(a==='renomear'){const novo=prompt('Novo nome:',label.innerText);if(novo&&novo.trim()){label.innerText=novo.trim();card.dataset.name=novo.trim();}}
-                            if(a==='apagar'){if(confirm(`Apagar ${label.innerText}?`)){card.remove();total--;document.getElementById('cBinders').innerText=total;}}return;
-                              }
-                                binderPage.classList.remove('hidden');
-                                });
-                                document.addEventListener('click',e=>{if(!e.target.closest('.binder-card'))document.querySelectorAll('.menu').forEach(m=>m.classList.add('hidden'));if(e.target===modalNovo)modalNovo.classList.add('hidden');});
-                                colorPicker.oninput=e=>{if(alvoCapa)alvoCapa.style.setProperty('--cor',e.target.value);};
-                                document.getElementById('voltar').onclick=()=>binderPage.classList.add('hidden');
-                                document.getElementById('verTudo').onclick=()=>alert('Ver tudo');
-                                document.querySelectorAll('.slot').forEach(slot=>{
-                                  const input=slot.querySelector('input');
-                                    slot.addEventListener('click',()=>{if(!slot.querySelector('img'))input.click();});
-                                      input.onchange=e=>{
-                                          const file=e.target.files[0];if(!file)return;const url=URL.createObjectURL(file);
-                                              let img=slot.querySelector('img');if(!img){img=document.createElement('img');slot.appendChild(img);}
-                                                  img.src=url;
-                                                      if(!slot.dataset.added){cheios++;slot.dataset.added="1";document.getElementById('emptyText').style.display='none';const card=document.createElement('div');card.className='card';card.style.backgroundImage=`url(${url})`;grid.prepend(card);document.getElementById('c1').innerText=cheios;}
-                                                          document.getElementById('cheiosInfo').innerText=`${cheios}/4 cheios`;
-                                                            };
+let paginas=[[{},{},{},{}]]; let paginaAtual=0, slotAberto=null;
+const grid=document.getElementById('bpGrid'), dotsEl=document.getElementById('dots'), fileGlobal=document.getElementById('fileGlobal');
+function render(){
+  grid.innerHTML=''; paginas[paginaAtual].forEach((d,i)=>{
+      const slot=document.createElement('div'); slot.className=d.url?`slot ${d.status}`:'slot empty';
+          if(d.url){
+                slot.innerHTML=`<img class="card-img" src="${d.url}"><button class="star"></button><span class="badge ${d.status}">${d.status==='tenho'?'Tenho':d.status==='caminho'?'A caminho':'Desejo'}</span>`;
+                      slot.querySelector('.card-img').onclick=e=>{e.stopPropagation(); slotAberto=i; fileGlobal.onchange=ev=>{const f=ev.target.files[0];if(!f)return;d.url=URL.createObjectURL(f);render();};fileGlobal.click();};
+                            slot.querySelector('.star').onclick=e=>{e.stopPropagation(); slotAberto=i; document.getElementById('cardModalImg').src=d.url; document.getElementById('cardNome').value=d.nome||''; document.getElementById('cardTipo').value=d.tipo||'ALBUM'; document.getElementById('cardModal').classList.remove('hidden');};
+                                  slot.querySelector('.badge').onclick=e=>{e.stopPropagation(); const o=['desejo','tenho','caminho']; d.status=o[(o.indexOf(d.status)+1)%3]; render();};
+                                      }else{
+                                            slot.innerHTML=`<span style="font-size:24px;color:#6a8074">+</span><p style="font-size:10px;color:#5a6f65;font-weight:600;text-align:center">toque para colocar<br>um photocard</p>`;
+                                                  slot.onclick=()=>{fileGlobal.onchange=ev=>{const f=ev.target.files[0];if(!f)return; paginas[paginaAtual][i]={url:URL.createObjectURL(f),nome:'',tipo:'ALBUM',status:'desejo'}; render();}; fileGlobal.click();};
+                                                      }
+                                                          grid.appendChild(slot);
                                                             });
-                                                            document.getElementById('prox').onclick=()=>{pagina=pagina==1?2:1;document.getElementById('paginaInfo').innerText=`Página ${pagina} de 2`;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i+1==pagina));};
-                                                            document.getElementById('ant').onclick=()=>document.getElementById('prox').onclick();
+                                                              dotsEl.innerHTML=''; paginas.forEach((_,idx)=>{const dot=document.createElement('span');dot.className='dot'+(idx===paginaAtual?' active':'');dot.onclick=()=>{paginaAtual=idx;render();};dotsEl.appendChild(dot);});
+                                                                document.getElementById('paginaInfo').innerText=`Página ${paginaAtual+1} de ${paginas.length}`; document.getElementById('cheiosInfo').innerText=`${paginas[paginaAtual].filter(x=>x.url).length}/4 cheios`;
+                                                                }
+                                                                document.getElementById('btnNovaPagina').onclick=()=>{paginas.push([{},{},{},{}]); paginaAtual=paginas.length-1; render();};
+                                                                document.getElementById('ant').onclick=()=>{if(paginaAtual>0){paginaAtual--;render();}};
+                                                                document.getElementById('prox').onclick=()=>{if(paginaAtual<paginas.length-1){paginaAtual++;render();}};
+                                                                document.getElementById('salvarCard').onclick=()=>{const d=paginas[paginaAtual][slotAberto];d.nome=document.getElementById('cardNome').value;d.tipo=document.getElementById('cardTipo').value;document.getElementById('cardModal').classList.add('hidden');};
+                                                                document.getElementById('fecharCard').onclick=()=>document.getElementById('cardModal').classList.add('hidden');
+                                                                render();
