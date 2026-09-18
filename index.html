@@ -2,22 +2,42 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINDER</title>
 <link rel="stylesheet" href="style-home.css">
-<title>MINDER - Home</title>
 </head>
 <body>
-<div class="home-page">
-  <div class="home-header">
-      <h1>MINDER</h1>
-          <button>+ Novo binder</button>
-            </div>
-              <div class="binder-card">
-                  <div class="binder-cover"></div>
-                      <p>New binder</p>
-                          <small>0 Colecionados | 0 Favoritos</small>
-                            </div>
-                            </div>
-                            <script src="script-home.js"></script>
-                            </body>
-                            </html>
+<div class="app">
+  <div class="top-bar">
+      <button class="btn-novo" onclick="location.href='binder.html'">+ Novo binder</button>
+        </div>
+
+          <div class="binder-area" onclick="location.href='binder.html'">
+              <div class="binder-icon"></div>
+                  <p>New binder</p>
+                      <span>...</span>
+                        </div>
+
+                          <div class="recentes-area">
+                              <div class="recentes-top">
+                                    <h3>Recentes</h3>
+                                          <a>Ver Tudo ></a>
+                                              </div>
+                                                  <div class="recentes-lista" id="recentesLista"></div>
+                                                    </div>
+
+                                                      <div class="stats-box">
+                                                          <div class="stat"><span>♥</span><b id="qtdCol">2</b><p>Colecionados</p></div>
+                                                              <div class="line"></div>
+                                                                  <div class="stat"><span>★</span><b id="qtdFav">0</b><p>Favoritos</p></div>
+                                                                      <div class="line"></div>
+                                                                          <div class="stat"><span>■</span><b>1</b><p>Binders</p></div>
+                                                                            </div>
+
+                                                                              <div class="bottom-nav">
+                                                                                  <button class="active">⌂<br>Home</button>
+                                                                                    </div>
+                                                                                    </div>
+                                                                                    <script src="script-home.js"></script>
+                                                                                    </body>
+                                                                                    </html>
